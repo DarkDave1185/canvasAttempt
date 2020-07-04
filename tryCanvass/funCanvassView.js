@@ -3,7 +3,7 @@ console.clear();
 //to setup a full screen Canvas demo in JavaScript, we need to select the canvas from the DOM and get its dimensions
 
 
-const canvas = document.getElementById('scene');
+const canvas = document.getElementById("scene");
 //canvas dimensions
 //width of scene
 //-let width = canvas.offsetWidth;
@@ -83,6 +83,19 @@ class Square {
         this.yProjected = 0;
         //scale element in 2D(further=smaller)
         this.scaleProjected = 0;
+        //3rd Party Plugin for Animation
+        gsap.to(this, (Math.random() * 10 + 15), {
+            z: width,
+            //number of repeats (-1 for infinite)
+            repeat: -1,
+            //if true > A-B-B-A, if false > A-B-A-B
+            yoyo: true,
+            ease: "power2",
+            //or ease like "power2"
+            yoyoEase: true,
+            //random delay time
+            delay: Math.random() * -25
+        });
     }
     //move particles from 2D to 3D
     project() {
@@ -100,11 +113,11 @@ class Square {
         //particle opacity based on distance from screen
         ctx.globalAlpha = Math.abs(1 - this.z / width);
         //draw rectangle based on prjected coordinates and scale
-        ctx.fillReact(this.xProjected - this.radius, this.yProjected - this.radius, this.radius * 2 * this.scaleProjected, this.radius * 2 * this.scaleProjected);
+        ctx.fillRect(this.xProjected - this.radius, this.yProjected - this.radius, this.radius * 2 * this.scaleProjected, this.radius * 2 * this.scaleProjected);
     }
 }
 
-function createSquares(){
+function createSquares() {
     //dots array will be empty
     dots.length = 0;
     //create squares
@@ -119,7 +132,7 @@ function createSquares(){
 
 function render() {
     //clear canvas from left to bottom right
-    ctx.clearReact(0, 0, width, height);
+    ctx.clearRect(0, 0, width, height);
     //loop through dots array
     for (var i = 0; i < dots.length; i++) {
         //draw element
@@ -136,7 +149,7 @@ function afterResize() {
         canvas.width = canvas.clientWidth * 2;
         canvas.height = canvas.clientHeight * 2;
         ctx.scale(2, 2);
-    }else{
+    } else {
         canvas.width = width;
         canvas.height = height;
     }
@@ -149,7 +162,7 @@ function afterResize() {
 // Variable used to store a timeout when user resized its screen
 let resizeTimeout;
 // Function called right after user resizes screen
-function onResize(){
+function onResize() {
     // Clear the timeout variable
     resizeTimeout = window.clearTimeout(resizeTimeout);
     // Store a new timeout to avoid calling afterResize for every resize event
