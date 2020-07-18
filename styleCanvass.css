@@ -1,0 +1,12 @@
+/*remove the default margins on the body and prevent scrollbars from appearing*/
+body{
+    margin: 0;
+    overflow: hidden;
+}
+/*we want our canvas to be full screen*/
+/*width and height at 100% of the viewport*/
+canvas{
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+}
